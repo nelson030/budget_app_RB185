@@ -1,0 +1,35 @@
+<h2>Goals</h2>
+
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Goal</th>
+    <th>Spending</th>
+  </tr>
+  <% all_goals.each do |tuple| %>
+    <tr>
+      <td><%= tuple[:category] %></td>
+      <td>$ <%= tuple[:amount] %>  </td>
+      <td>$ <%= @storage.find_category_spending_total(tuple[:id]) %></td>
+      <td>
+        <form method="post" action="/goals/deletegoal/<%= tuple[:id] %>">
+          <button>Delete</button>
+        </form>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<form method="post" action="/goals/addgoal">
+  <div>
+    <label for="category">New Category Name: </label>
+    <input type="text" name="category" id="category" required>
+  </div>
+  <div>
+    <label for="amount">Monthly Goal Amount: $</label>
+    <input type="text" name="amount" id="amount" required>
+  </div>
+  <div>
+    <button>Submit</button>
+  </div>
+</form>

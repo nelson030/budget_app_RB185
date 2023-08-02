@@ -1,0 +1,21 @@
+<h2><%= "Spending summary" %></h2>
+
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Amount</th>
+    <th>Date Recorded</th>
+  </tr>
+  <% @spending.each do |tuple| %>
+    <tr>
+      <td><%= tuple[:item] %></td>
+      <td>$ <%= tuple[:spending_amount] %></td>
+      <td><%= tuple[:date_recorded] %></td>
+      <td>
+        <form method="post" action="/spending/deleteitem/<%= tuple[:purchase_id] %>">
+          <button>Delete</button>
+        </form>
+      </td>
+    </tr>
+  <% end %>
+</table>

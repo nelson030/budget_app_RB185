@@ -1,0 +1,6 @@
+Next Todo
+- Fix find_category_spending_total(id) in database_persistence file
+so that spending is adjustable by date (month and year)
+  - Add similar functionality to spending?
+- Progress functionality
+- add confirmation screens when items are deleted
