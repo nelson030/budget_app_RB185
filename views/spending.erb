@@ -6,7 +6,7 @@
     <% all_goals.each do |tuple| %>
       <input type="radio" id="<%= tuple[:id] %>" name="category_chosen" value="<%= tuple[:id] %>">
       <label for="<%= tuple[:id] %>"><%= tuple[:category] %></label>
-      <a href="/spending/<%= tuple[:id] %>">Transactions</a><br><br>
+      <a href="/spending/<%= tuple[:id] %>/current">Transactions</a><br><br>
     <% end %>
   </fieldset>
   <div>

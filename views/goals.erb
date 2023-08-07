@@ -1,18 +1,34 @@
-<h2>Goals</h2>
+<h2>Monthly Progress for <%= "#{num_to_month(@date.month)} #{@date.year}" %></h2>
+
+<form method="post" action="/goals/getdate">
+  <div>
+    <label for="date">Choose a month: </label>
+    <select required name="date" id="date">
+      <% @valid_dates.each do |date| %>
+        <option value="<%= date.to_s %>"><%= "#{num_to_month(date.month)} #{date.year}" %></option>
+      <% end %>
+    </select>
+  </div>
+  <div>
+    <button>Load Month</button>
+  </div>
+</form>
+
+<br>
 
 <table>
   <tr>
     <th>Category</th>
+    <th>Spent</th>
     <th>Goal</th>
-    <th>Spending</th>
   </tr>
-  <% all_goals.each do |tuple| %>
+  <% @category_data.each do |tuple| %>
     <tr>
       <td><%= tuple[:category] %></td>
-      <td>$ <%= tuple[:amount] %>  </td>
-      <td>$ <%= @storage.find_category_spending_total(tuple[:id]) %></td>
+      <td>$ <%= zero_if_nil(tuple[:total_spending]) %></td>
+      <td>$ <%= tuple[:goal] %>  </td>
       <td>
-        <form method="post" action="/goals/deletegoal/<%= tuple[:id] %>">
+        <form method="post" action="/goals/deletegoal/<%= tuple[:goal_id] %>">
           <button>Delete</button>
         </form>
       </td>
@@ -20,6 +36,8 @@
   <% end %>
 </table>
 
+<br>
+<h4>Add Category</h4>
 <form method="post" action="/goals/addgoal">
   <div>
     <label for="category">New Category Name: </label>

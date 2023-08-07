@@ -1,0 +1,7 @@
+.progress-ontrack {
+  accent-color: green;
+}
+
+.progress-over {
+   accent-color: red;
+}

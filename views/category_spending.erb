@@ -1,4 +1,18 @@
-<h2><%= "Spending summary" %></h2>
+<h2><%= @spending.first[:category_name] %> Summary: <%= "#{num_to_month(@date.month)} #{@date.year}" %></h2>
+
+<form method="post" action="/spending/<%= @category_id %>/getdate">
+  <div>
+    <label for="date">Choose a month: </label>
+    <select required name="date" id="date">
+      <% @valid_dates.each do |date| %>
+        <option value="<%= date.to_s %>"><%= "#{num_to_month(date.month)} #{date.year}" %></option>
+      <% end %>
+    </select>
+  </div>
+  <div>
+    <button>Load Purchase History</button>
+  </div>
+</form>
 
 <table>
   <tr>
@@ -19,3 +33,27 @@
     </tr>
   <% end %>
 </table>
+
+<br>
+
+<h4><b>Total</b></h4>
+
+<% if sum_purchases(@spending).to_f > @spending.first[:goal_amount].to_f %>
+  <p>Over goal!</p>
+  <div class="progress-over">
+<% else %>
+  <div class="progress-ontrack">
+<% end %>
+
+  <label for="category">
+  ( $<%= format_float_number(sum_purchases(@spending)) %> / 
+  $<%= format_float_number(@spending.first[:goal_amount]) %> )
+  </label>
+
+  <progress id="category"
+  value="<%= format_float_number(sum_purchases(@spending)) %>"
+  min="0"
+  max="<%= format_float_number(@spending.first[:goal_amount]) %>" 
+  >
+  </progress>
+</div>
