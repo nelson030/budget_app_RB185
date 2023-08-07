@@ -266,7 +266,3 @@ post "/goals/deletegoal/:id" do
     redirect "/goals"
   end
 end
-
-get "/progress" do
-  erb :progress, layout: :layout
-end
